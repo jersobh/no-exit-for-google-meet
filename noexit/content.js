@@ -10,18 +10,34 @@ function enterFullScreen() {
   }
 }
 
+const cameraCheck = setInterval(() => {
+  const turnOnCameraButton = document.querySelector('[aria-label="Turn on camera (⌘ + e)"]');
+  if (turnOnCameraButton) {
+    turnOnCameraButton.click();
+    turnOnCameraButton.style.display = "none";
+    clearInterval(cameraCheck);
+  }
+}, 500);
+
+const micCheck = setInterval(() => {
+  const turnOnMicButton = document.querySelector('[aria-label="Turn on microphone (⌘ + d)"]');
+  if (turnOnMicButton) {
+    turnOnMicButton.click();
+    turnOnMicButton.style.display = "none";
+    clearInterval(micCheck);
+  }
+}, 500);
+
 setInterval(() => {
   if (!document.fullscreenElement) {
     enterFullScreen();
   }
 }, 500);
 
-
-const intervalId = setInterval(() => {
+const leaveCallButtonCheck = setInterval(() => {
   const leaveCallButton = document.querySelector('[aria-label="Leave call"]');
   if (leaveCallButton) {
-    console.log("Button found");
     leaveCallButton.style.display = "none";
-    clearInterval(intervalId);
+    clearInterval(leaveCallButtonCheck);
   }
 }, 500);
