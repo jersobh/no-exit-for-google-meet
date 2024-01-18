@@ -1,3 +1,5 @@
+const userLang = navigator.language || navigator.userLanguage; 
+
 function enterFullScreen() {
   if (document.documentElement.requestFullscreen) {
     document.documentElement.requestFullscreen();
@@ -11,7 +13,13 @@ function enterFullScreen() {
 }
 
 const cameraCheck = setInterval(() => {
-  const turnOnCameraButton = document.querySelector('[aria-label="Turn on camera (⌘ + e)"]');
+  var turnOnCameraButton = null;
+  if (userLang  == 'en-US') { 
+    turnOnCameraButton = document.querySelector('[aria-label*="Turn on microphone"]');
+  } else if (userLang  == 'pt-BR') {  
+    turnOnCameraButton = document.querySelector('[aria-label*="Ativar câmera"]');
+  }
+
   if (turnOnCameraButton) {
     turnOnCameraButton.click();
     turnOnCameraButton.style.display = "none";
@@ -20,7 +28,13 @@ const cameraCheck = setInterval(() => {
 }, 500);
 
 const micCheck = setInterval(() => {
-  const turnOnMicButton = document.querySelector('[aria-label="Turn on microphone (⌘ + d)"]');
+  var turnOnMicButton = null;
+  if (userLang  == 'en-US') { 
+    turnOnMicButton = document.querySelector('[aria-label*="Turn on microphone"]');
+  } else if (userLang  == 'pt-BR') {  
+    turnOnMicButton = document.querySelector('[aria-label*="Ativar microfone"]');
+  }
+
   if (turnOnMicButton) {
     turnOnMicButton.click();
     turnOnMicButton.style.display = "none";
@@ -35,7 +49,13 @@ setInterval(() => {
 }, 500);
 
 const leaveCallButtonCheck = setInterval(() => {
-  const leaveCallButton = document.querySelector('[aria-label="Leave call"]');
+  var leaveCallButton = null;
+  if (userLang  == 'en-US') { 
+    leaveCallButton = document.querySelector('[aria-label*="Leave call"]');
+  } else if (userLang  == 'pt-BR') {  
+    leaveCallButton = document.querySelector('[aria-label*="Sair da chamada"]');
+  }
+
   if (leaveCallButton) {
     leaveCallButton.style.display = "none";
     clearInterval(leaveCallButtonCheck);
