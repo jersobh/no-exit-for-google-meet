@@ -1,4 +1,11 @@
 const userLang = navigator.language || navigator.userLanguage; 
+navigator.keyboard.lock();
+document.addEventListener('keydown', event => {
+  event.preventDefault();
+  return false;
+});
+
+document.addEventListener('contextmenu', event => event.preventDefault());
 
 function enterFullScreen() {
   if (document.documentElement.requestFullscreen) {
@@ -23,6 +30,7 @@ const cameraCheck = setInterval(() => {
   if (turnOnCameraButton) {
     turnOnCameraButton.click();
     turnOnCameraButton.style.display = "none";
+    turnOnCameraButton.remove();
     clearInterval(cameraCheck);
   }
 }, 500);
@@ -38,6 +46,7 @@ const micCheck = setInterval(() => {
   if (turnOnMicButton) {
     turnOnMicButton.click();
     turnOnMicButton.style.display = "none";
+    turnOnMicButton.remove();
     clearInterval(micCheck);
   }
 }, 500);
@@ -58,6 +67,7 @@ const leaveCallButtonCheck = setInterval(() => {
 
   if (leaveCallButton) {
     leaveCallButton.style.display = "none";
+    leaveCallButton.remove();
     clearInterval(leaveCallButtonCheck);
   }
 }, 500);
