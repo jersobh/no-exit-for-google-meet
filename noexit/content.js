@@ -1,3 +1,20 @@
+'use strict';
+
+const ARIA_LABELS = {
+  camera: {
+    'en-US': "Turn on camera",
+    'pt-BR': "Ativar câmera"
+  },
+  mic: {
+    'en-US': "Turn on microphone",
+    'pt-BR': "Ativar microfone"
+  },
+  leaveCall: {
+    'en-US': "Leave call",
+    'pt-BR': "Sair da chamada"
+  }
+};
+
 const userLang = navigator.language || navigator.userLanguage; 
 navigator.keyboard.lock();
 document.addEventListener('keydown', event => {
@@ -20,12 +37,7 @@ function enterFullScreen() {
 }
 
 const cameraCheck = setInterval(() => {
-  var turnOnCameraButton = null;
-  if (userLang  == 'en-US') { 
-    turnOnCameraButton = document.querySelector('[aria-label*="Turn on microphone"]');
-  } else if (userLang  == 'pt-BR') {  
-    turnOnCameraButton = document.querySelector('[aria-label*="Ativar câmera"]');
-  }
+  var turnOnCameraButton = document.querySelector(`[aria-label*="${ARIA_LABELS.camera[userLang]}"]`);
 
   if (turnOnCameraButton) {
     turnOnCameraButton.click();
@@ -36,12 +48,7 @@ const cameraCheck = setInterval(() => {
 }, 500);
 
 const micCheck = setInterval(() => {
-  var turnOnMicButton = null;
-  if (userLang  == 'en-US') { 
-    turnOnMicButton = document.querySelector('[aria-label*="Turn on microphone"]');
-  } else if (userLang  == 'pt-BR') {  
-    turnOnMicButton = document.querySelector('[aria-label*="Ativar microfone"]');
-  }
+  const turnOnMicButton = document.querySelector(`[aria-label*="${ARIA_LABELS.mic[userLang]}"]`);
 
   if (turnOnMicButton) {
     turnOnMicButton.click();
@@ -51,19 +58,10 @@ const micCheck = setInterval(() => {
   }
 }, 500);
 
-setInterval(() => {
-  if (!document.fullscreenElement) {
-    enterFullScreen();
-  }
-}, 500);
+
 
 const leaveCallButtonCheck = setInterval(() => {
-  var leaveCallButton = null;
-  if (userLang  == 'en-US') { 
-    leaveCallButton = document.querySelector('[aria-label*="Leave call"]');
-  } else if (userLang  == 'pt-BR') {  
-    leaveCallButton = document.querySelector('[aria-label*="Sair da chamada"]');
-  }
+  var leaveCallButton = document.querySelector(`[aria-label*="${ARIA_LABELS.leaveCall[userLang]}"]`);
 
   if (leaveCallButton) {
     leaveCallButton.style.display = "none";
@@ -71,3 +69,10 @@ const leaveCallButtonCheck = setInterval(() => {
     clearInterval(leaveCallButtonCheck);
   }
 }, 500);
+
+setInterval(() => {
+  if (!document.fullscreenElement) {
+    enterFullScreen();
+  }
+}, 500);
+
